@@ -1,1 +1,40 @@
-[]
+[
+  {
+    "work": "w_179929c7bc15",
+    "market": "EN",
+    "medium": "light_novel",
+    "name": "Mushoku Tensei: Jobless Reincarnation",
+    "publisher": "Seven Seas Entertainment",
+    "volumes": [
+      {"number": "1", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 1", "isbn13": "978-1-64275-138-3", "release_date": "2019-05-21", "contains": [1]},
+      {"number": "2", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 2", "isbn13": "978-1-64275-140-6", "release_date": "2019-07-30", "contains": [2]},
+      {"number": "3", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 3", "isbn13": "978-1-64275-705-7", "release_date": "2019-10-29", "contains": [3]},
+      {"number": "4", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 4", "isbn13": "978-1-64505-179-4", "release_date": "2020-01-07", "contains": [4]},
+      {"number": "5", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 5", "isbn13": "978-1-64505-228-9", "release_date": "2020-04-14", "contains": [5]},
+      {"number": "6", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 6", "isbn13": "978-1-64505-488-7", "release_date": "2020-07-28", "contains": [6]},
+      {"number": "7", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 7", "isbn13": "978-1-64505-753-6", "release_date": "2020-10-13", "contains": [7]},
+      {"number": "8", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 8", "isbn13": "978-1-64505-793-2", "release_date": "2020-12-08", "contains": [8]},
+      {"number": "9", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 9", "isbn13": "978-1-64505-952-3", "release_date": "2021-03-30", "contains": [9]},
+      {"number": "10", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 10", "isbn13": "978-1-64827-087-1", "release_date": "2021-04-20", "contains": [10]},
+      {"number": "11", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 11", "isbn13": "978-1-64827-222-6", "release_date": "2021-06-15", "contains": [11]},
+      {"number": "12", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 12", "isbn13": "978-1-64827-260-8", "release_date": "2021-08-17", "contains": [12]},
+      {"number": "13", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 13", "isbn13": "978-1-64827-322-3", "release_date": "2021-10-12", "contains": [13]},
+      {"number": "14", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 14", "isbn13": "978-1-64827-360-5", "release_date": "2022-01-18", "contains": [14]},
+      {"number": "15", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 15", "isbn13": "978-1-63858-128-4", "release_date": "2022-04-05", "contains": [15]},
+      {"number": "16", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 16", "isbn13": "978-1-63858-194-9", "release_date": "2022-05-17", "contains": [16]},
+      {"number": "17", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 17", "isbn13": "978-1-63858-241-0", "release_date": "2022-07-19", "contains": [17]},
+      {"number": "18", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 18", "isbn13": "978-1-63858-350-9", "release_date": "2022-09-13", "contains": [18]},
+      {"number": "19", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 19", "isbn13": "978-1-63858-765-1", "release_date": "2022-11-08", "contains": [19]},
+      {"number": "20", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 20", "isbn13": "978-1-63858-860-3", "release_date": "2022-12-20", "contains": [20]},
+      {"number": "21", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 21", "isbn13": "978-1-63858-978-5", "release_date": "2023-03-21", "contains": [21]},
+      {"number": "22", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 22", "isbn13": "978-1-68579-636-5", "release_date": "2023-06-06", "contains": [22]},
+      {"number": "23", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 23", "isbn13": "978-1-68579-645-7", "release_date": "2023-08-15", "contains": [23]},
+      {"number": "24", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 24", "isbn13": "978-1-68579-470-5", "release_date": "2023-10-17", "contains": [24]},
+      {"number": "25", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 25", "isbn13": "978-1-68579-571-9", "release_date": "2023-12-20", "contains": [25]},
+      {"number": "26", "title": "Mushoku Tensei: Jobless Reincarnation (Light Novel) Vol. 26", "isbn13": "979-8-88843-435-2", "release_date": "2024-03-05", "contains": [26]}
+    ],
+    "source_url": "https://sevenseasentertainment.com/series/mushoku-tensei-jobless-reincarnation-light-novel/",
+    "reason": "Seven Seas (Airship) edition absent from the English Wikipedia volume list; Open Library's records carry the Japanese title so the pipeline never matched them; every ISBN and date verified against the Open Library edition record (https://openlibrary.org/isbn/<isbn13>) on 2026-09-18",
+    "checked": "2026-09-18"
+  }
+]
