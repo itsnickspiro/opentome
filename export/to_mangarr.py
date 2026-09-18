@@ -331,6 +331,13 @@ def export(src_path, out_path, carry_ids_from=None):
                 if c and len(json.loads(c)) > 1:
                     is_omni = 1
         n_omni += is_omni
+        # A straight-translation line carries no composition in the published file
+        # (the pipeline writes `contains` only for omnibus lines; a corrected line
+        # writes `[N]` for every volume so the cross-market mapping can see it).
+        # Nulling it here keeps `is_omnibus=0 ⇒ composition IS NULL` true for every
+        # line -- the artifact contract's rule -- and touches no existing line.
+        if not is_omni:
+            out.execute("UPDATE volumes SET composition=NULL WHERE gcd_series_id=? AND composition IS NOT NULL", (sid,))
 
         # volume_count = rows a consumer can actually read. Counting every row
         # (specials, duplicates) made Mangarr create Books with nothing behind them.

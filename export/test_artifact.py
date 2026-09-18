@@ -32,9 +32,9 @@ def run(path):
                            g("SELECT COALESCE((SELECT value FROM meta WHERE key='gcd_dump'),'')")) else 1)
 
     # composition semantics
-    rule("is_omnibus=0 series with a multi-entry composition",
+    rule("is_omnibus=0 series with a composition",
          g("""SELECT COUNT(DISTINCT s.gcd_series_id) FROM series s JOIN volumes v USING(gcd_series_id)
-              WHERE s.is_omnibus=0 AND v.composition IS NOT NULL AND LENGTH(v.composition)>3"""))
+              WHERE s.is_omnibus=0 AND v.composition IS NOT NULL"""))
     rule("is_omnibus=1 series with no multi-entry composition",
          g("""SELECT COUNT(*) FROM series s WHERE s.is_omnibus=1 AND NOT EXISTS
               (SELECT 1 FROM volumes v WHERE v.gcd_series_id=s.gcd_series_id
