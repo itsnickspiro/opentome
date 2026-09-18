@@ -52,20 +52,41 @@ and `meta.alias_provenance` must be `opentome` — the clean-room guard.
 
 ## Next
 
-Phase 3, remaining:
+Phase 3 is done (2026-09-18). What runs where now:
 
-1. The public repository `itsnickspiro/opentome` with its two secrets
-   (`MANGARR_METADATA_TOKEN`, `OPENTOME_CACHE_TOKEN`), the private cache seed, and the
-   first CI builds: `seed-cache` once, then `catalogue` twice without publish (the
-   second must report a cache hit), then the first `publish = true` run.
-2. The site at opentomedb.com — GitHub Pages from `site/`, generated from the published
-   artifact: home, data, contribute, changelog, browse.
-3. Mangarr's *Suggest a correction* link (a prefilled issue URL; no token, no API call).
-4. Retire the old build hosts — nothing OpenTome-related runs anywhere but CI afterwards.
-5. The first correction through the new path: Mushoku Tensei's English light-novel line.
+- **Build + publish:** GitHub Actions in this repository. `catalogue` runs every Sunday
+  09:00 UTC (build + every gate, never publishes); a maintainer publishes by dispatching it
+  with `publish = true`. First CI build: run 35387125298 (identical figures to the last
+  workstation build, ids carried exactly); first CI publish: run 35393862685 →
+  `opentome-2026-09-18` on `itsnickspiro/mangarr-metadata`, alias `metadata` re-pointed,
+  picked up by Mangarr the same hour.
+- **Cache:** the Actions cache, seeded from the private `opentome-cache` repo's `seed`
+  release (run 35387058848), kept warm by `cache-keepalive`.
+- **Site:** `pages` builds `site/` on push, on every `catalogue` completion and on a
+  Sunday schedule; live at the GitHub Pages URL, moving to opentomedb.com once DNS
+  resolves (custom domain is set; HTTPS enforcement follows the certificate).
+- **Corrections:** issues and pull requests here; `corrections check` runs on every PR.
+  The first one through the path — #1, the English light-novel line of Mushoku Tensei
+  (Seven Seas, 26 volumes, every ISBN and date from an Open Library edition record) — is
+  merged and in the next build (`rl_250d21561d35`); it reaches Mangarr on the next publish.
+  It also found a gate bug: the artifact contract's "multi-entry composition" heuristic
+  (`LENGTH > 3`) refused `[10]`; the export now carries composition only for omnibus lines
+  and the rule checks the real invariant.
+- **Retired:** the old browser and the workstation rebuild agent — nothing OpenTome-related
+  runs outside CI. The pre-CI history stays on the maintainer's private mirror.
 
-Beyond Phase 3: DNB as the German primary source (`docs/german-market.md`); the
-multi-market validation spike; MangaUpdates / MangaDex id columns are present but unfilled.
+Open, in order of value:
+
+1. **Publish again** so the Mushoku Tensei line reaches consumers (a maintainer's dispatch).
+2. The `metadata` alias release's notes on `mangarr-metadata` still describe the pre-OpenTome
+   (GCD-era) artifact; they should be rewritten to the OpenTome text (maintainer decision —
+   it changes existing release content).
+3. Known data defects surfaced by the site: 113 `series.publisher` values carry Wikipedia
+   infobox markup (`<br>`, `<small>`); 53 lines have `volume_count = 0`; `status` is blank on
+   3,946 lines; `country` is empty everywhere; `mangaupdates_id`/`mangadex_id` are unfilled.
+4. DNB as the German primary source (`docs/german-market.md`) — today's German lines come
+   from Wikipedia only; the site says so.
+5. The multi-market validation spike; per-line pages on the site (v2).
 
 ## Gotchas for contributors
 
