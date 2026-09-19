@@ -85,3 +85,24 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.MANGARR_METADATA_TOKEN }}
         run: PUBLISH=1 bash export/publish.sh
+      # Tell the Mangarr Discord server (#catalogue) what was published. The webhook URL is
+      # the DISCORD_CATALOGUE_WEBHOOK secret; the step is skipped when it is not set.
+      - name: announce on Discord
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.publish && env.HOOK != '' }}
+        env:
+          HOOK: ${{ secrets.DISCORD_CATALOGUE_WEBHOOK }}
+        run: |
+          label=$(python3 -c "import json; print(json.load(open('build/version.json'))['gcd_dump'])")
+          series=$(sqlite3 build/manga-metadata.sqlite 'SELECT COUNT(*) FROM series')
+          volumes=$(sqlite3 build/manga-metadata.sqlite 'SELECT COUNT(*) FROM volumes')
+          gate=$(grep -m1 '^matched ' build/measure.log || echo 'measure gate: see the run log')
+          body=$(python3 - "$label" "$series" "$volumes" "$gate" <<'EOF'
+          import json, sys
+          label, series, volumes, gate = sys.argv[1:5]
+          print(json.dumps({"username": "OpenTome", "embeds": [{
+              "title": f"Catalogue published: {label}", "color": 0x7a43b6,
+              "url": "https://github.com/itsnickspiro/mangarr-metadata/releases/tag/" + label,
+              "description": f"{int(series):,} series, {int(volumes):,} volumes. {gate}\nMangarr picks it up on its next daily check."}]}))
+          EOF
+          )
+          curl -sS -o /dev/null -w 'discord: %{http_code}\n' -A "OpenTome-CI/1.0" -H 'Content-Type: application/json' --data "$body" "$HOOK"
