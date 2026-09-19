@@ -36,6 +36,7 @@ ISSUES_URL = f"{CODE_URL}/issues/new/choose"
 ISSUE_FORM = f"{CODE_URL}/issues/new?template={{}}"
 BLOB_URL = f"{CODE_URL}/blob/main/{{}}"
 TREE_URL = f"{CODE_URL}/tree/main/{{}}"
+DISCORD_URL = "https://discord.gg/bQVwv54KdP"   # permanent invite; #corrections (forum) and #announcements
 
 BUILD_TAG = re.compile(r"^opentome-\d{4}-\d{2}-\d{2}$")
 NOTES_LINE = re.compile(r"OpenTome (opentome-\d{4}-\d{2}-\d{2}): (\d+) series, (\d+) volumes")
@@ -106,7 +107,7 @@ def page(out_dir, rel_path, template, title, nav, build_label, wide=False, **ctx
     body = render(template, root=root, build_label=e(build_label), **ctx)
     doc = render("base.html", root=root, home=root or "./", title=e(title), body=body,
                  main_class=' class="wide"' if wide else "",
-                 build_label=e(build_label), code_url=CODE_URL,
+                 build_label=e(build_label), code_url=CODE_URL, discord_url=DISCORD_URL,
                  **{f"cur_{n}": (' aria-current="page"' if n == nav else "")
                     for n in ("home", "data", "contribute", "changelog", "browse")})
     path = out_dir / rel_path
@@ -458,7 +459,7 @@ def build(db_path, manifest_path, out_dir):
         for name, f, when in ISSUE_FORMS)
     written.append(page(
         out_dir, "contribute/index.html", "contribute.html", "OpenTomeDB — Contribute", "contribute",
-        issue_forms=forms, issues_url=ISSUES_URL, wrong_fact_url=ISSUE_FORM.format("wrong-fact.yml"),
+        issue_forms=forms, issues_url=ISSUES_URL, discord_url=DISCORD_URL, wrong_fact_url=ISSUE_FORM.format("wrong-fact.yml"),
         pr_template_url=BLOB_URL.format(".github/PULL_REQUEST_TEMPLATE.md"),
         contributing_url=BLOB_URL.format("CONTRIBUTING.md"),
         corrections_url=TREE_URL.format("corrections"),

@@ -70,6 +70,8 @@ cannot quietly disappear. For something you have noticed but not checked, open a
 with one of the templates (*Wrong fact*, *Missing volume*, *New release line*, *Merge
 lines*). [`CONTRIBUTING.md`](CONTRIBUTING.md) has the steps.
 
+There is also a [Discord](https://discord.gg/bQVwv54KdP): `#corrections` is a forum (one thread per wrong or missing fact, with the source you checked), `#announcements` carries each publish, `#general` is for questions. Feature requests belong in [GitHub issues](https://github.com/itsnickspiro/opentome/issues/new/choose) so they are not lost in chat.
+
 ## How the catalogue is built
 
 `tier0/rebuild_all.sh` runs the whole pipeline, in order:
