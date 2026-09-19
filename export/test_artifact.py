@@ -8,7 +8,7 @@ on both sides stayed green (docs/cleanup-v2.md):
     omnibus iff some volume contains >1 of them
   * volume_count = rows a consumer can read (Mangarr creates Books 1..N)
   * release_date is day precision or NULL (never '2019' -> 1 January)
-  * no wiki markup in names or aliases
+  * no wiki markup in names, aliases or publishers
   * no English/French series with zero data
 """
 import json, os, re, sqlite3, sys
@@ -73,6 +73,9 @@ def run(path):
          g("""SELECT COUNT(*) FROM series_alias WHERE alias LIKE '%{{%' OR alias LIKE '%[[%'
               OR alias LIKE '%<%'"""))
     rule("empty series names", g("SELECT COUNT(*) FROM series WHERE TRIM(name)=''"))
+    rule("publishers with markup",
+         g("""SELECT COUNT(*) FROM series WHERE publisher LIKE '%<%' OR publisher LIKE '%{{%'
+              OR publisher LIKE '%}}%' OR publisher LIKE '%[[%'"""))
 
     # phantom lines: no date of ANY precision and no ISBN (release_date is
     # day-only; a month/year value lives in release_date_raw and is data)

@@ -118,6 +118,40 @@ def _first_of_list(v):
     return items[0] if items else ""
 
 
+# Status words an infobox hangs on a publisher; a bare status is dropped from the value.
+_PUB_STATUS = re.compile(r"\(\s*(former(ly)?|current(ly)?|expired|revoked|defunct|original)\s*\)", re.I)
+# A publisher that is no longer the publisher: skipped when a later entry is not.
+_PUB_STALE = re.compile(r"\b(former(ly)?|expired|revoked|defunct|original creator|webcomic|self-published|1st edition)\b", re.I)
+_PUB_NOW = re.compile(r"\b(current|present|print)\b", re.I)
+
+
+def _publisher_field(v):
+    """One publisher from a field that may list several with <br> and annotate them
+    with <small>: 'Tokyopop (former)<br />J-Novel Club' -> 'J-Novel Club';
+    'Kadokawa Shoten <small>(vol. 1-2)</small><br />Media Factory <small>(vol. 3-present)</small>'
+    -> 'Media Factory (vol. 3-present)'. A single entry keeps its annotation minus a bare
+    status word ('Tokyopop <small>(former)</small>' -> 'Tokyopop'). The 113 lines the first
+    public artifact shipped with '<br>' inside the publisher came from here (2026-09-19)."""
+    v = _first_of_list(v or "")
+    v = re.sub(r"<small>\s*(.*?)\s*</small>", r" \1 ", v, flags=re.S | re.I)
+    entries = []          # (value, stale, now) -- judged on the raw entry, before its status word goes
+    for part in re.split(r"<br\s*/?>", v, flags=re.I):
+        part = _clean(_unlink(re.sub(r"<[^>]+>", "", part)))
+        part = part.replace("{{", "").replace("}}", "")
+        stale, now = bool(_PUB_STALE.search(part)), bool(_PUB_NOW.search(part))
+        part = re.sub(r"\s+", " ", _PUB_STATUS.sub("", part)).strip(" ,;")
+        if part and not (part.startswith("(") and part.endswith(")")):
+            entries.append((part, stale, now))
+        elif part and entries:
+            value, st, nw = entries[-1]
+            entries[-1] = (f"{value} {part}", st, nw)
+    if not entries:
+        return ""
+    live = [e for e in entries if not e[1]]
+    now = [e for e in live if e[2]]
+    return (now or live or entries)[0][0]
+
+
 REGION = {"NA", "US", "EN", "UK", "AUS", "NZ", "SEA", "CAN", "CA", "IN", "PH", "SG", "MY"}
 
 
@@ -131,14 +165,14 @@ def _publisher_en(v):
     v = _first_of_list(v)
     m = re.search(r"\{\{\s*English manga publishers?\s*\|(.*)\}\}", v or "", re.S | re.I)
     if not m:
-        return _clean(_unlink(v or "")) or None
+        return _publisher_field(v) or None
     fields, positional = {}, []
     for part in _split_top(m.group(1)):
         if "=" in part:
             k, _, val = part.partition("=")
-            fields[_clean(_unlink(k)).upper()] = _clean(_unlink(_first_of_list(val)))
+            fields[_clean(_unlink(k)).upper()] = _publisher_field(val)
         else:
-            positional.append(_clean(_unlink(_first_of_list(part))))
+            positional.append(_publisher_field(part))
     for region in ("NA", "US", "EN", "UK"):
         if fields.get(region):
             return fields[region]
@@ -238,7 +272,7 @@ def parse_main(w, list_article=None):
     mv = re.match(r"(\d{1,4})", vols)
     if mv:
         out["volumes"] = int(mv.group(1))
-    pub = _clean(_unlink(_first_of_list(f.get("publisher", ""))))
+    pub = _publisher_field(f.get("publisher", ""))
     if pub:
         out["publisher"] = pub
     pub_en = _publisher_en(f.get("publisher_en"))

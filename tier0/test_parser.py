@@ -216,6 +216,21 @@ eq("infobox first/last", (mf.get("first"), mf.get("last")), ("2011-09-08", "2014
 eq("infobox volumes", mf.get("volumes"), 14)
 eq("infobox publisher (first of list)", mf.get("publisher"), "Shueisha")
 eq("infobox publisher_en (NA, unlinked)", mf.get("publisher_en"), "Viz Media")
+for raw, want in [
+    ("Tokyopop (former)<br />J-Novel Club", "J-Novel Club"),
+    ("Tokyopop <small>(former)</small>", "Tokyopop"),
+    ("Eclipse Comics (former)<br>Dark Horse (current)", "Dark Horse"),
+    ("Kadokawa Shoten <small>(vol. 1-2)</small><br />Media Factory <small>(vol. 3-present)</small>", "Media Factory (vol. 3-present)"),
+    ("Type-Moon <small>(original creator)</small><br>Kodansha <small>(commercial publisher)</small>", "Kodansha (commercial publisher)"),
+    ("Coolmic (digital)<br>Seven Seas Entertainment (print)", "Seven Seas Entertainment (print)"),
+    ("Moonlight Novels<br>(Shōsetsuka ni Narō)", "Moonlight Novels (Shōsetsuka ni Narō)"),
+    ("Yen Press<br />Sol Press <small>(formerly)</small>", "Yen Press"),
+    ("[[Viz Media]]}}<br>{{English manga publisher", "Viz Media"),
+    ("Sun Magazine<br/>Ichijinsha<br>Futabasha", "Sun Magazine"),
+    ("{{ubl|[[Shueisha]]|[[Shueisha]] (bunko)}}", "Shueisha"),
+    ("", ""),
+]:
+    eq(f"publisher field {raw[:40]!r}", MA._publisher_field(raw), want)
 eq("infobox demographic", mf.get("demographic"), "Seinen")
 eq("infobox header name", mf.get("name"), "Test Work")
 eq("infobox kanji/romaji", (mf.get("ja_kanji"), mf.get("ja_romaji")), ("テスト", "Tesuto"))
