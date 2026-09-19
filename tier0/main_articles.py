@@ -135,9 +135,13 @@ def _publisher_field(v):
     v = _first_of_list(v or "")
     v = re.sub(r"<small>\s*(.*?)\s*</small>", r" \1 ", v, flags=re.S | re.I)
     entries = []          # (value, stale, now) -- judged on the raw entry, before its status word goes
-    for part in re.split(r"<br\s*/?>", v, flags=re.I):
+    # a broken infobox glues values with template/link residue ('Toyspress (former)}} [[Titan
+    # Publishing Group#Titan Manga'): those seams split like <br>, and an unterminated
+    # [[Page#Section keeps the section (the imprint)
+    for part in re.split(r"<br\s*/?>|\}\}|\[\[|\]\]", v, flags=re.I):
         part = _clean(_unlink(re.sub(r"<[^>]+>", "", part)))
         part = part.replace("{{", "").replace("}}", "")
+        part = re.sub(r"^[^#|]*#", "", part).split("|")[-1]
         stale, now = bool(_PUB_STALE.search(part)), bool(_PUB_NOW.search(part))
         part = re.sub(r"\s+", " ", _PUB_STATUS.sub("", part)).strip(" ,;")
         if part and not (part.startswith("(") and part.endswith(")")):

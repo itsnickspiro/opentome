@@ -226,6 +226,8 @@ for raw, want in [
     ("Moonlight Novels<br>(Shōsetsuka ni Narō)", "Moonlight Novels (Shōsetsuka ni Narō)"),
     ("Yen Press<br />Sol Press <small>(formerly)</small>", "Yen Press"),
     ("[[Viz Media]]}}<br>{{English manga publisher", "Viz Media"),
+    ("Toyspress (former)}} [[Titan Publishing Group#Titan Manga", "Titan Manga"),
+    ("[[Kodansha USA|Kodansha Comics]]<br>Tokyopop (former)", "Kodansha Comics"),
     ("Sun Magazine<br/>Ichijinsha<br>Futabasha", "Sun Magazine"),
     ("{{ubl|[[Shueisha]]|[[Shueisha]] (bunko)}}", "Shueisha"),
     ("", ""),
