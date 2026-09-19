@@ -50,6 +50,11 @@ Every one of these exits non-zero and stops the build; none is optional.
 `export/publish.sh` adds two refusals of its own: the label must be `opentome-YYYY-MM-DD`
 and `meta.alias_provenance` must be `opentome` — the clean-room guard.
 
+### 2026-09-19 — publisher hygiene, Discord announce
+- `tier0/main_articles._publisher_field`: one clean publisher from a `<br>`/`<small>`/residue-glued infobox field (prefers the entry that is not former/expired/revoked, then one marked current/present/print, else the first); used for `publisher` and every `publisher_en` value. Contract rule `publishers with markup` in `export/test_artifact.py`. CI build 35453130837: `publishers with markup: 0` (was 113), measure gate `matched 48/49, 0 coverage failures`. **Not published yet — the next `publish=true` dispatch ships it** (Nick's gate).
+- `catalogue.yml`: on a publish, an embed goes to the Mangarr Discord `#catalogue` (secret `DISCORD_CATALOGUE_WEBHOOK`; the step is skipped when the secret is unset).
+- Looked at and left: 3,947 lines with blank status (1,530 main lines whose work has no Wikipedia status, 1,558 sub-lines that deliberately do not inherit the work's status) and 53 lines with zero volumes (real works without a volume table; 13 are sub-lines that could be folded into their parent via `id_redirect` — not done, no consumer needs it).
+
 ## Next
 
 Phase 3 is done (2026-09-18). What runs where now:
